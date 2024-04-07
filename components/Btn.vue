@@ -34,7 +34,6 @@ const spanClasses = computed(() => {
 <template>
   <button
     type="button"
-    id="play"
     class="pushable drop-shadow-md disabled:bg-gray-700"
     :class="btnClasses"
     :disabled="disabled"

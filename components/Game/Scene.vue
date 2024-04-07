@@ -1,5 +1,15 @@
 <script setup lang="ts">
+const emit = defineEmits<{
+  (e: "selected"): void;
+}>();
+
 const selectedBottle = ref();
+
+function handleSelectedBottle(data: string) {
+  selectedBottle.value = data;
+  console.log(data)
+  emit("selected");
+}
 </script>
 
 <template>
@@ -13,7 +23,7 @@ const selectedBottle = ref();
       :min-polar-angle="Math.PI / 4"
     />
     <Suspense>
-      <GameKitchen @selected-bottle="selectedBottle = $emit" />
+      <GameKitchen @selected-bottle="handleSelectedBottle" />
     </Suspense>
     <TresAmbientLight :intensity="1" />
   </TresCanvas>

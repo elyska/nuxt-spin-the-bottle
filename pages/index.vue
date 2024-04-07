@@ -4,6 +4,10 @@ const { hasFinishLoading, progress, items } = await useProgress();
 const gameStarted = ref(false);
 const play = ref(false);
 const showPlay = ref(false);
+
+function handleSelected() {
+  showPlay.value = true;
+}
 </script>
 
 <template>
@@ -21,7 +25,7 @@ const showPlay = ref(false);
     {{ items }}
     {{ hasFinishLoading }}
   </div>
-  <Btn v-if="showPlay" @click="play = true"> Play </Btn>
+  <Btn v-if="showPlay" @click="play = true" class="z-[1] absolute bottom-4 right-4"> Play </Btn>
 
-  <GameScene />
+  <GameScene @selected="handleSelected" />
 </template>

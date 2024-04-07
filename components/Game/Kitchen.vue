@@ -7,6 +7,10 @@ import {
 } from "three/src/Three.js";
 import { useEventListener } from "@vueuse/core";
 
+const emit = defineEmits<{
+  (e: "selected-bottle", bottle: string): void;
+}>();
+
 const { sizes, camera, raycaster } = useTresContext();
 
 const { scene: model } = await useGLTF("/models/kitchen.glb");
@@ -36,10 +40,6 @@ bottles.forEach((item: Object3D<Object3DEventMap>) => {
   item.castShadow = true;
 });
 
-const emit = defineEmits<{
-  (e: "selected-bottle", bottle: string): void;
-}>();
-
 const selectedBottle = ref();
 useEventListener(document, "click", (event) => {
   if (!camera.value) {
@@ -57,7 +57,6 @@ useEventListener(document, "click", (event) => {
     selectedBottle.value = modelIntersects[0].object.name;
     emit("selected-bottle", selectedBottle.value);
   }
-  console.log(selectedBottle.value);
 });
 </script>
 
