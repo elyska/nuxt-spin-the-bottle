@@ -4,9 +4,11 @@ import type { ButtonTheme } from "~/types/button.types";
 const props = withDefaults(
   defineProps<{
     theme?: ButtonTheme;
+    disabled?: boolean;
   }>(),
   {
     theme: "primary",
+    disabled: false,
   }
 );
 
@@ -33,8 +35,9 @@ const spanClasses = computed(() => {
   <button
     type="button"
     id="play"
-    class="pushable drop-shadow-md"
+    class="pushable drop-shadow-md disabled:bg-gray-700"
     :class="btnClasses"
+    :disabled="disabled"
   >
     <span
       class="font-bangers tracking-wider text-2xl pushable-front"
@@ -62,7 +65,14 @@ const spanClasses = computed(() => {
   transition: transform 0.2s;
 }
 
-.pushable:active .pushable-front {
+.pushable:active:not(:disabled) .pushable-front {
   transform: translateY(-2px);
+}
+
+.pushable:disabled {
+  cursor: not-allowed;
+}
+.pushable:disabled .pushable-front {
+  @apply bg-gray-400/[0.8];
 }
 </style>
