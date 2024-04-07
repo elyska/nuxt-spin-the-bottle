@@ -23,5 +23,5 @@ const showPlay = ref(false);
   </div>
   <Btn v-if="showPlay" @click="play = true"> Play </Btn>
 
-  <GameKitchen />
+  <GameScene />
 </template>
