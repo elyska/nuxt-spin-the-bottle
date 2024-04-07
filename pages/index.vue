@@ -22,10 +22,18 @@ function handleSelected() {
     </div>
 
     <Btn :disabled="progress < 100" @click="gameStarted = true"> Start </Btn>
-    {{ items }}
-    {{ hasFinishLoading }}
   </div>
-  <Btn v-if="showPlay" @click="play = true" class="z-[1] absolute bottom-4 right-4"> Play </Btn>
+  <Btn
+    v-if="showPlay"
+    @click="play = true"
+    class="z-[1] absolute bottom-4 right-4"
+  >
+    Play
+  </Btn>
 
-  <GameScene @selected="handleSelected" :game-started="gameStarted" />
+  <GameScene
+    @selected="handleSelected"
+    :game-started="gameStarted"
+    :play="play"
+  />
 </template>
