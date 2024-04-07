@@ -14,6 +14,7 @@
     "@tresjs/core": "^3.8.0",
     "@tresjs/nuxt": "^2.1.1",
     "@tresjs/post-processing": "^0.7.1",
+    "@vueuse/core": "^10.9.0",
     "nuxt": "^3.11.2",
     "three": "^0.163.0",
     "vue": "^3.4.21",

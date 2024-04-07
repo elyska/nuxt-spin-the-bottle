@@ -2,6 +2,8 @@
 const { hasFinishLoading, progress, items } = await useProgress();
 
 const gameStarted = ref(false);
+const play = ref(false);
+const showPlay = ref(false);
 </script>
 
 <template>
@@ -19,5 +21,7 @@ const gameStarted = ref(false);
     {{ items }}
     {{ hasFinishLoading }}
   </div>
+  <Btn v-if="showPlay" @click="play = true"> Play </Btn>
+
   <GameKitchen />
 </template>
