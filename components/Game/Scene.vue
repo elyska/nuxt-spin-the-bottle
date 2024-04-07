@@ -21,7 +21,7 @@ function handleSelectedBottle(data: string) {
 
 const position = new Vector3(0, 3, -2.3);
 const camera: ShallowRef<TresInstance | null> = shallowRef(null);
-
+const controlsEnabled = ref(false);
 watch(
   () => props.gameStarted,
   () => {
@@ -32,8 +32,11 @@ watch(
         y: 0.504,
         z: -1.332,
         delay: 1000,
-        duration: 3000,
-        easing: "linear", // easing function
+        duration: 4000,
+        easing: "linear",
+        complete: function () {
+          controlsEnabled.value = true;
+        },
       });
     }
   }
@@ -49,6 +52,7 @@ watch(
       :min-distance="1.5"
       :max-polar-angle="Math.PI / 2"
       :min-polar-angle="Math.PI / 4"
+      :enabled="controlsEnabled"
     />
     <Suspense>
       <GameKitchen @selected-bottle="handleSelectedBottle" />

@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import * as THREE from "three";
-import {
-  Object3D,
-  type Vector3,
-  type Object3DEventMap,
-} from "three/src/Three.js";
+import { Object3D, type Object3DEventMap } from "three/src/Three.js";
 import { useEventListener } from "@vueuse/core";
 import anime from "animejs";
+import type { ShallowRef } from "vue";
 
 const emit = defineEmits<{
   (e: "selected-bottle", bottle: string): void;
@@ -47,6 +44,7 @@ bottles.forEach((item: Object3D<Object3DEventMap>) => {
 let animation: any;
 let previousSelection = ref();
 const selectedBottle = ref();
+const spotLight: ShallowRef<TresInstance | null> = shallowRef(null);
 useEventListener(document, "click", (event) => {
   if (!camera.value) {
     return;
@@ -62,6 +60,11 @@ useEventListener(document, "click", (event) => {
   if (modelIntersects.length) {
     selectedBottle.value = modelIntersects[0].object;
     emit("selected-bottle", selectedBottle.value.name);
+
+    // Update spotlight position
+    if (spotLight.value?.position) {
+      spotLight.value.position.copy(selectedBottle.value.position);
+    }
 
     // a new bottle clicked and another bottle was clicked previously
     if (
@@ -95,6 +98,10 @@ useEventListener(document, "click", (event) => {
 </script>
 
 <template>
+  <TresSpotLight
+    ref="spotLight"
+    :args="[0xffffff, 0.5, 15, 3.6, 1, 2]"
+  />
   <primitive v-if="model" :object="model" />
 </template>
 
