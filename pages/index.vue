@@ -27,5 +27,5 @@ function handleSelected() {
   </div>
   <Btn v-if="showPlay" @click="play = true" class="z-[1] absolute bottom-4 right-4"> Play </Btn>
 
-  <GameScene @selected="handleSelected" />
+  <GameScene @selected="handleSelected" :game-started="gameStarted" />
 </template>
