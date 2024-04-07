@@ -20,12 +20,14 @@ function handleSelectedBottle(data: string) {
 }
 
 const position = new Vector3(0, 3, -2.3);
+const ambientLight: ShallowRef<TresInstance | null> = shallowRef(null);
 const camera: ShallowRef<TresInstance | null> = shallowRef(null);
 const controlsEnabled = ref(false);
 watch(
   () => props.gameStarted,
   () => {
     if (props.gameStarted) {
+      ambientLight.value.intensity = 0.45;
       anime({
         targets: camera.value?.position,
         x: -0.473,
@@ -54,10 +56,12 @@ watch(
       :min-polar-angle="Math.PI / 4"
       :enabled="controlsEnabled"
     />
+
     <Suspense>
       <GameKitchen @selected-bottle="handleSelectedBottle" />
     </Suspense>
-    <TresAmbientLight :intensity="1" />
+
+    <TresAmbientLight ref="ambientLight" :intensity="1" />
   </TresCanvas>
 </template>
 

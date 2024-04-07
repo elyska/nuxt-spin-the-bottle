@@ -21,22 +21,12 @@ model.traverse((child: any) => {
   }
 });
 
-const table = model.getObjectByName("table");
-table?.traverse((child: any) => {
-  if (child.isMesh) {
-    // show shadows on the table
-    child.receiveShadow = true;
-  }
-});
-
 const bottleNames = ["Malibu", "Jack", "Becherovka", "Jameson"];
 
 const bottles = model.children.filter((child: any) =>
   bottleNames.includes(child.name)
 );
 bottles.forEach((item: Object3D<Object3DEventMap>) => {
-  item.castShadow = true;
-
   item.initialRotationZ = item.rotation.z;
   item.initialPositionY = item.position.y;
 });
@@ -45,6 +35,7 @@ let animation: any;
 let previousSelection = ref();
 const selectedBottle = ref();
 const spotLight: ShallowRef<TresInstance | null> = shallowRef(null);
+
 useEventListener(document, "click", (event) => {
   if (!camera.value) {
     return;
@@ -98,10 +89,8 @@ useEventListener(document, "click", (event) => {
 </script>
 
 <template>
-  <TresSpotLight
-    ref="spotLight"
-    :args="[0xffffff, 0.5, 15, 3.6, 1, 2]"
-  />
+  <TresSpotLight ref="spotLight" :args="[0xffffff, 0.5, 15, 3.6, 1, 2]" />
+  <TresDirectionalLight ref="directionalLight" :args="['#fce8bb', 1]" />
   <primitive v-if="model" :object="model" />
 </template>
 
