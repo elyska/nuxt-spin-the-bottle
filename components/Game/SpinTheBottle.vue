@@ -1,12 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    prop: string;
-  }>(),
-  {
-    prop: "example",
-  }
-);
+const { bottle } = useGameStore();
 </script>
 
 <template>
@@ -18,7 +11,7 @@ const props = withDefaults(
       <GameTable />
     </Suspense>
     <Suspense>
-      <GameBottle />
+      <GameBottle v-if="bottle" :bottle="bottle" />
     </Suspense>
 
     <TresAmbientLight :intensity="2.5" />

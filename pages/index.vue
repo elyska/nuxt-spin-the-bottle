@@ -1,14 +1,21 @@
 <script setup lang="ts">
 const { progress, items } = await useProgress();
 
+const store = useGameStore();
+
 const gameStarted = ref(false);
 const showSplash = ref(true);
 const play = ref(false);
 const showPlay = ref(false);
-
-function handleSelected() {
-  showPlay.value = true;
-}
+// const showPlay = computed(() => (store.bottle ? true : false));
+watch(
+  () => store.bottle,
+  () => {
+    if (store.bottle) {
+      showPlay.value = true;
+    }
+  }
+);
 </script>
 
 <template>
@@ -57,11 +64,7 @@ function handleSelected() {
     Play
   </Btn>
 
-  <GameScene
-    @selected="handleSelected"
-    :game-started="gameStarted"
-    :play="play"
-  />
-  <GameSpinTheBottle />
-  <!-- <GameSpinTheBottle v-if="play" /> -->
+  <GameScene :game-started="gameStarted" :play="play" />
+  <!-- <GameSpinTheBottle /> -->
+  <GameSpinTheBottle v-if="play" />
 </template>

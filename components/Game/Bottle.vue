@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import anime from "animejs";
 import { usePointerSwipe, type UseSwipeDirection } from "@vueuse/core";
+import type { BottleName } from "~/types/bottles.types";
 
-const { sizes, scene } = useTresContext();
+const props = defineProps<{
+  bottle: BottleName;
+}>();
 
-const { scene: model } = await useGLTF("/models/bottles/jack.glb");
-model.traverse((child: any) => {
+const { sizes } = useTresContext();
+
+const { scene: model } = await useGLTF(`/models/bottles/${props.bottle}.glb`);
+model.traverse((child: TresObject) => {
   if (child.isMesh) {
     child.castShadow = true;
   }
@@ -14,7 +19,7 @@ model.traverse((child: any) => {
 const cursor = ref({ x: 0, y: 0 });
 let spinning = ref(false);
 function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
-  const velocity = 0.5 + Math.random(); 
+  const velocity = 0.5 + Math.random();
   console.log(event);
   cursor.value.x = normaliseCursorPosition(event.x, sizes.width.value);
   cursor.value.y = normaliseCursorPosition(event.y, sizes.height.value);

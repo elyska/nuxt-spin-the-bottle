@@ -1,25 +1,17 @@
 <script setup lang="ts">
 import * as THREE from "three";
-import { Object3D, type Object3DEventMap } from "three/src/Three.js";
 import { useEventListener } from "@vueuse/core";
 import anime from "animejs";
-import type { ShallowRef } from "vue";
 
-const props = defineProps<{
-  play: boolean;
-}>();
-
-const emit = defineEmits<{
-  (e: "selected-bottle", bottle: string): void;
-}>();
+const store = useGameStore();
 
 const { sizes, camera, raycaster } = useTresContext();
 
 const { scene: model } = await useGLTF("/models/kitchen.glb");
 
-console.log(model);
+// console.log(model);
 
-model.traverse((child: any) => {
+model.traverse((child: TresObject) => {
   if (child?.isMesh) {
     child.material.depthWrite = true;
   }
@@ -27,10 +19,10 @@ model.traverse((child: any) => {
 
 const bottleNames = ["Malibu", "Jack", "Becherovka", "Jameson"];
 
-const bottles = model.children.filter((child: any) =>
+const bottles = model.children.filter((child: TresObject) =>
   bottleNames.includes(child.name)
 );
-bottles.forEach((item: any) => {
+bottles.forEach((item: TresObject) => {
   item.initialRotationZ = item.rotation.z;
   item.initialPositionY = item.position.y;
 });
@@ -38,7 +30,7 @@ bottles.forEach((item: any) => {
 let animation = ref();
 let previousSelection = ref();
 const selectedBottle = ref();
-const spotLight: ShallowRef<TresInstance | null> = shallowRef(null);
+const spotLight = shallowRef<THREE.Light>();
 
 function selectBottle(event: MouseEvent) {
   if (!camera.value) {
@@ -53,10 +45,11 @@ function selectBottle(event: MouseEvent) {
   const modelIntersects = raycaster.value.intersectObjects(bottles);
 
   if (modelIntersects.length) {
+    // update selection
     selectedBottle.value = modelIntersects[0].object;
-    emit("selected-bottle", selectedBottle.value.name);
+    store.bottle = selectedBottle.value.name;
 
-    // Update spotlight position
+    // update spotlight position
     if (spotLight.value?.position) {
       spotLight.value.position.copy(selectedBottle.value.position);
     }
@@ -90,33 +83,11 @@ function selectBottle(event: MouseEvent) {
     previousSelection.value = modelIntersects[0].object;
   }
 }
-const stop = useEventListener(document, "click", selectBottle);
-watch(
-  () => props.play,
-  () => {
-    if (props.play) {
-      // disable selecting bottle, remove highlighting of selected bottle
-      // document.removeEventListener("click", selectBottle);
-      stop();
-      animation.value.pause();
-
-      // remove other bottles
-      bottles.forEach((bottle: Object3D) => {
-        if (bottle.name !== selectedBottle.value.name) {
-          model.remove(bottle);
-        }
-      });
-    }
-  }
-);
+useEventListener(document, "click", selectBottle);
 </script>
 
 <template>
-  <TresSpotLight
-    v-if="!play"
-    ref="spotLight"
-    :args="[0xffffff, 0.5, 15, 3.6, 1, 2]"
-  />
+  <TresSpotLight ref="spotLight" :args="[0xffffff, 0.5, 15, 3.6, 1, 2]" />
   <TresDirectionalLight
     ref="directionalLight"
     :args="['#fce8bb', 2]"
