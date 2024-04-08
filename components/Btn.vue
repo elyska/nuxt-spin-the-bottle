@@ -4,10 +4,12 @@ import type { ButtonTheme } from "~/types/button.types";
 const props = withDefaults(
   defineProps<{
     theme?: ButtonTheme;
+    type?: "button" | "submit" | "reset";
     disabled?: boolean;
   }>(),
   {
     theme: "primary",
+    type: "button",
     disabled: false,
   }
 );
@@ -33,7 +35,7 @@ const spanClasses = computed(() => {
 
 <template>
   <button
-    type="button"
+    :type="type"
     class="pushable drop-shadow-md disabled:bg-gray-700"
     :class="btnClasses"
     :disabled="disabled"

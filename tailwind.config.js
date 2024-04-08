@@ -14,6 +14,11 @@ module.exports = {
         onest: ["Onest", "sans-serif"],
         bangers: ["Bangers", "sans-serif"],
       },
+      colors: {
+        "tres-blue": {
+          DEFAULT: "#82DBC5",
+        },
+      },
     },
   },
   plugins: [],

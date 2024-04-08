@@ -35,7 +35,7 @@ watch(
 </script>
 
 <template>
-  <TresCanvas clear-color="#82DBC5" window-size>
+  <TresCanvas window-size>
     <TresPerspectiveCamera ref="camera" :position="position" />
     <!-- <OrbitControls /> -->
     <OrbitControls
