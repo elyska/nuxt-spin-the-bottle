@@ -15,9 +15,8 @@ const emit = defineEmits<{
 
 const selectedBottle = ref();
 
-function handleSelectedBottle(data: Object3D) {
+function handleSelectedBottle(data: string) {
   selectedBottle.value = data;
-  console.log(data.name);
   console.log(data);
   emit("selected");
 }

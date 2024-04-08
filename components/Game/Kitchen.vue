@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "selected-bottle", bottle: Object3D): void;
+  (e: "selected-bottle", bottle: string): void;
 }>();
 
 const { sizes, camera, raycaster } = useTresContext();
@@ -54,7 +54,7 @@ function selectBottle(event: MouseEvent) {
 
   if (modelIntersects.length) {
     selectedBottle.value = modelIntersects[0].object;
-    emit("selected-bottle", selectedBottle.value);
+    emit("selected-bottle", selectedBottle.value.name);
 
     // Update spotlight position
     if (spotLight.value?.position) {

@@ -21,9 +21,9 @@ const props = withDefaults(
       <GameBottle />
     </Suspense>
 
-    <TresAmbientLight :intensity="2" />
+    <TresAmbientLight :intensity="2.5" />
     <TresDirectionalLight
-      :intensity="1"
+      :intensity="1.5"
       :position="[5, 20, 5]"
       cast-shadow
       :shadow-mapSize-width="4096"
