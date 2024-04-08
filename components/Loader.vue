@@ -12,7 +12,7 @@ const props = defineProps<{
       :style="`width: ${percentage}%`"
     ></div>
     <p
-      class="font-bangers text-xl text-right"
+      class="font-bangers text-2xl text-right"
       :class="[percentage < 100 ? 'text-red-400' : 'text-green-400']"
     >
       {{ percentage }} %

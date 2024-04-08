@@ -39,7 +39,15 @@ function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
       },
       complete: function () {
         store.spinning = false;
-        console.log(normaliseAngle(model.rotation.y) * (180 / Math.PI));
+        // const name = store.getNameFromAngle(
+        //   normaliseAngle(model.rotation.y) * (180 / Math.PI)
+        // );
+        const angle =
+          normaliseAngle(2 * Math.PI - model.rotation.y - Math.PI / 2) *
+          (180 / Math.PI);
+        console.log(angle);
+        store.setPlayer(angle);
+        console.log(store.player);
       },
     });
   }
