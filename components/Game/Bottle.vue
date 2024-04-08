@@ -48,6 +48,7 @@ function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
         console.log(angle);
         store.setPlayer(angle);
         console.log(store.player);
+        store.showDialog = true;
       },
     });
   }

@@ -63,14 +63,17 @@ const start = handleSubmit(
     </form>
   </div>
 
-  <div
+  <!-- <div
     v-if="!hasFinishLoading"
     class="z-[1] bg-tres-blue absolute top-0 left-0 right-0 flex items-center justify-center flex-col h-full w-full gap-16"
   >
     <div class="w-2/3 md:w-1/3">
       <Loader :key="progress" :percentage="progress" />
     </div>
-  </div>
+  </div> -->
+
+  <Dialog player="Eliska" />
+  <!-- <Dialog v-if="store.showDialog" :player="store.player" /> -->
 
   <Btn
     v-if="showPlay"
@@ -90,8 +93,8 @@ const start = handleSubmit(
       class="z-[10] w-full xl:w-2/3 max-w-4xl absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
     />
   </div>
-  <GameScene />
-  <GameSpinTheBottle v-if="play" />
+  <!-- <GameScene />
+  <GameSpinTheBottle v-if="play" /> -->
 </template>
 
 <style scoped></style>

@@ -6,6 +6,7 @@ export const useGameStore = defineStore("docs", () => {
   const spinning = ref(false);
   const players = ref<string[]>([]);
   const player = ref();
+  const showDialog = ref(false);
 
   function setPlayer(angle: number) {
     const numNames = players.value.length;
@@ -20,6 +21,7 @@ export const useGameStore = defineStore("docs", () => {
     players,
     player,
     spinning,
+    showDialog,
     setPlayer,
   };
 });
