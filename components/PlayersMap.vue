@@ -3,7 +3,8 @@ const props = defineProps<{
   players?: string[];
 }>();
 
-const r = 60;
+const strokeWidth = 30;
+const r = 100 - strokeWidth / 2;
 const circumference = 2 * Math.PI * r;
 
 const segments = computed(() => props.players?.length ?? 0);
@@ -14,7 +15,6 @@ const segmentAngle = computed(() =>
 );
 
 const gap = 1;
-const strokeWidth = 30;
 </script>
 
 <template>
@@ -36,8 +36,8 @@ const strokeWidth = 30;
     </svg>
     <div
       v-for="(player, i) in players"
-      class="absolute inset-[15%] text-center text-white"
-      :style="`rotate: ${90 + segmentAngle/2 + i * segmentAngle}deg`"
+      class="absolute inset-[5%] text-center text-white font-bangers text-2xl"
+      :style="`rotate: ${90 + segmentAngle / 2 + i * segmentAngle}deg`"
     >
       {{ player }}
     </div>

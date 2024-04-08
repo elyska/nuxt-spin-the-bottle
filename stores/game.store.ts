@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 
-export const useGameStore = defineStore("docs", () => {
+export const useGameStore = defineStore("game", () => {
   const bottle = ref();
   const gameStarted = ref(false);
   const spinning = ref(false);
   const players = ref<string[]>([]);
-  const player = ref();
+  const player = ref("");
   const showDialog = ref(false);
 
   function setPlayer(angle: number) {

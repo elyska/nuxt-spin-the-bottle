@@ -24,6 +24,7 @@ watch(
         z: -1.332,
         delay: 1000,
         duration: 3000,
+        frameRate: 12,
         easing: "linear",
         complete: function () {
           controlsEnabled.value = true;

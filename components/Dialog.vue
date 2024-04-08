@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { FireIcon, TrophyIcon } from "@heroicons/vue/20/solid";
+import { TrophyIcon } from "@heroicons/vue/20/solid";
 
 defineProps<{
   player: string;
 }>();
-const open = ref(true);
+
+const store = useQuestionsStore();
+const gameStore = useGameStore();
+
+const question = ref();
 </script>
 
 <template>
-  <DialogRoot v-model:open="open">
+  <DialogRoot v-model:open="gameStore.showDialog">
     <DialogPortal>
       <DialogOverlay class="bg-gray-800/[0.7] fixed inset-0 z-30" />
       <DialogContent
@@ -23,11 +27,27 @@ const open = ref(true);
           <TrophyIcon class="w-6 text-yellow-400 inline mr-2" />{{ player }}'s
           turn
         </DialogTitle>
+        <DialogDescription v-if="question" class="leading-normal">
+          {{ question }}
+        </DialogDescription>
 
-        <div class="flex gap-4">
-          <Btn class="flex-grow">Truth</Btn>
-          <Btn theme="error" class="flex-grow">Dare</Btn>
+        <div v-if="!question" class="flex gap-4">
+          <Btn
+            class="flex-grow outline-none"
+            type="button"
+            @click="question = store.getTruth()"
+            >Truth</Btn
+          >
+          <Btn
+            theme="error"
+            class="flex-grow"
+            @click="question = store.getDare()"
+            >Dare</Btn
+          >
         </div>
+        <DialogClose v-if="question" aria-label="Close">
+          <Btn class="w-full" @click="question = null">Completed</Btn>
+        </DialogClose>
       </DialogContent>
     </DialogPortal>
   </DialogRoot>
