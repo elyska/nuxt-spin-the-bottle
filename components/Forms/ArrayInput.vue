@@ -4,6 +4,7 @@ import { XMarkIcon } from "@heroicons/vue/20/solid";
 const props = withDefaults(
   defineProps<{
     name: string;
+    label?: string;
     placeholder?: string;
     required?: boolean;
   }>(),
@@ -18,6 +19,9 @@ const { handleChange, errorMessage } = useField(props.name);
 
 <template>
   <div>
+    <label v-if="label" class="font-bold mb-2 text-sm">
+      {{ label }}
+    </label>
     <TagsInputRoot
       v-model="modelValue"
       :name="name"

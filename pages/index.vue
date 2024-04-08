@@ -23,7 +23,7 @@ const validationSchema = toTypedSchema(
     players: zod.array(zod.string()).min(2, "Add at least two players."),
   })
 );
-const { handleSubmit } = useForm({
+const { values, handleSubmit } = useForm({
   validationSchema,
 });
 
@@ -42,30 +42,28 @@ const start = handleSubmit(
 <template>
   <div
     v-if="showSplash"
-    class="z-[1] backdrop-blur-md absolute flex items-center justify-center flex-col h-full w-full gap-16"
+    class="z-[1] backdrop-blur-md absolute flex items-center justify-center flex-col h-full w-full gap-4"
   >
     <Heading> Spin the Bottle </Heading>
+    <!-- <PlayersMap :players="['rtyasx', 'asd', 'qwe', ]" /> -->
+    <PlayersMap v-if="values.players?.length && values.players.length > 1" :players="values.players" />
     <form
       @submit.prevent="start"
       class="flex items-center justify-center flex-col w-full gap-12 max-w-7xl"
     >
-      <FormsArrayInput name="players" placeholder="Players..." class="w-1/3" />
+      <FormsArrayInput name="players" placeholder="Players..." class="w-3/4 md:w-1/3" />
       <Btn type="submit"> Start </Btn>
     </form>
-
-    <!-- <div class="w-2/3 md:w-1/3">
-      <Loader :percentage="progress" />
-    </div> -->
   </div>
 
-  <div
+  <!-- <div
     v-if="!hasFinishLoading"
     class="z-[1] bg-tres-blue absolute top-0 left-0 right-0 flex items-center justify-center flex-col h-full w-full gap-16"
   >
     <div class="w-2/3 md:w-1/3">
       <Loader :key="progress" :percentage="progress" />
     </div>
-  </div>
+  </div> -->
 
   <Btn
     v-if="showPlay"
@@ -80,7 +78,9 @@ const start = handleSubmit(
     Play
   </Btn>
 
-  <GameScene />
-  <GameSpinTheBottle v-if="play" />
+  <!-- <GameScene />
+  <GameSpinTheBottle v-if="play" /> -->
   <!-- <GameSpinTheBottle /> -->
 </template>
+
+<style scoped></style>
