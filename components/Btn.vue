@@ -16,7 +16,7 @@ const props = withDefaults(
 
 const btnClasses = computed(() => {
   const themeClasses = {
-    primary: "bg-green-800",
+    primary: "bg-tres-blue-500",
     error: "bg-red-800",
   };
 
@@ -25,7 +25,7 @@ const btnClasses = computed(() => {
 
 const spanClasses = computed(() => {
   const themeClasses = {
-    primary: "bg-green-500/[0.7]",
+    primary: "bg-tres-blue/[0.6]",
     error: "bg-red-500/[0.7]",
   };
 

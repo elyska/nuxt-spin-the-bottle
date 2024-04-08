@@ -17,6 +17,7 @@ module.exports = {
       colors: {
         "tres-blue": {
           DEFAULT: "#82DBC5",
+          500: "#70c1ad",
         },
       },
     },

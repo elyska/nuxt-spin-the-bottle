@@ -30,7 +30,7 @@ const { handleChange, errorMessage } = useField(props.name);
         v-for="item in modelValue"
         :key="item"
         :value="item"
-        class="text-white flex shadow-md items-center justify-center gap-2 bg-gray-400 aria-[current=true]:bg-gray-500 rounded p-1"
+        class="text-white flex shadow-md items-center justify-center gap-2 bg-tres-blue aria-[current=true]:bg-tres-blue-500 rounded p-1"
       >
         <TagsInputItemText class="text-sm pl-1" />
         <TagsInputItemDelete
