@@ -3,10 +3,7 @@ import type { TresCamera } from "@tresjs/core";
 import anime from "animejs";
 import { Light, Vector3 } from "three";
 
-const props = defineProps<{
-  gameStarted: boolean;
-  play: boolean;
-}>();
+const store = useGameStore();
 
 const position = new Vector3(0, 3, -2.3);
 const ambientLight = shallowRef<Light>();
@@ -14,10 +11,11 @@ const camera = shallowRef<TresCamera>();
 const controlsEnabled = ref(false);
 const controlsMinDistance = ref(1.5);
 const controlsMinPolarAngle = ref(Math.PI / 4);
+
 watch(
-  () => props.gameStarted,
+  () => store.gameStarted,
   () => {
-    if (props.gameStarted) {
+    if (store.gameStarted) {
       if (ambientLight.value) ambientLight.value.intensity = 0.45;
       anime({
         targets: camera.value?.position,

@@ -3,11 +3,10 @@ const { progress, items } = await useProgress();
 
 const store = useGameStore();
 
-const gameStarted = ref(false);
 const showSplash = ref(true);
 const play = ref(false);
 const showPlay = ref(false);
-// const showPlay = computed(() => (store.bottle ? true : false));
+
 watch(
   () => store.bottle,
   () => {
@@ -34,7 +33,7 @@ watch(
       @click="
         () => {
           showSplash = false;
-          gameStarted = true;
+          store.gameStarted = true;
         }
       "
     >
@@ -43,7 +42,7 @@ watch(
   </div>
 
   <div
-    v-if="progress < 100 && gameStarted"
+    v-if="progress < 100 && store.gameStarted"
     class="z-[1] absolute top-0 left-0 right-0 container mx-auto flex items-center justify-center flex-col h-[100vh] w-full gap-16"
   >
     <div class="w-1/4">
@@ -64,7 +63,7 @@ watch(
     Play
   </Btn>
 
-  <GameScene :game-started="gameStarted" :play="play" />
+  <GameScene />
   <!-- <GameSpinTheBottle /> -->
   <GameSpinTheBottle v-if="play" />
 </template>
