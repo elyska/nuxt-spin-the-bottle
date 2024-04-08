@@ -23,7 +23,7 @@ watch(
         y: 0.504,
         z: -1.332,
         delay: 1000,
-        duration: 4000,
+        duration: 3000,
         easing: "linear",
         complete: function () {
           controlsEnabled.value = true;

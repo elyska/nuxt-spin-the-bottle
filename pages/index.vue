@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { progress, items } = await useProgress();
+const { progress, hasFinishLoading } = await useProgress();
 
 const store = useGameStore();
 
@@ -24,10 +24,9 @@ watch(
   >
     <Heading> Spin the Bottle </Heading>
 
-    <div class="w-1/4">
+    <div class="w-2/3 md:w-1/4">
       <Loader :percentage="progress" />
     </div>
-    {{ items }}
     <Btn
       :disabled="progress < 100"
       @click="
@@ -42,11 +41,11 @@ watch(
   </div>
 
   <div
-    v-if="progress < 100 && store.gameStarted"
+    v-if="!hasFinishLoading && play"
     class="z-[1] absolute top-0 left-0 right-0 container mx-auto flex items-center justify-center flex-col h-[100vh] w-full gap-16"
   >
-    <div class="w-1/4">
-      <Loader :percentage="progress" />
+    <div class="w-2/3 md:w-1/4">
+      <Loader :key="progress" :percentage="progress" />
     </div>
   </div>
 

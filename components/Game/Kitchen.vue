@@ -9,8 +9,6 @@ const { sizes, camera, raycaster } = useTresContext();
 
 const { scene: model } = await useGLTF("/models/kitchen.glb");
 
-// console.log(model);
-
 model.traverse((child: TresObject) => {
   if (child?.isMesh) {
     child.material.depthWrite = true;

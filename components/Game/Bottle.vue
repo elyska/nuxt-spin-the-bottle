@@ -20,7 +20,6 @@ const cursor = ref({ x: 0, y: 0 });
 let spinning = ref(false);
 function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
   const velocity = 0.5 + Math.random();
-  console.log(event);
   cursor.value.x = normaliseCursorPosition(event.x, sizes.width.value);
   cursor.value.y = normaliseCursorPosition(event.y, sizes.height.value);
 
