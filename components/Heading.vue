@@ -2,7 +2,7 @@
 
 <template>
   <h1
-    class="text-5xl lg:text-8xl font-black text-red-400 text-center mb-6 font-bangers tracking-wide"
+    class="text-5xl lg:text-8xl font-black text-tres-blue text-center mb-6 font-bangers tracking-wide"
   >
     <slot />
   </h1>

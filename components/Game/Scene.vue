@@ -8,7 +8,7 @@ const store = useGameStore();
 const position = new Vector3(0, 3, -2.3);
 const ambientLight = shallowRef<Light>();
 const camera = shallowRef<TresCamera>();
-const controlsEnabled = ref(false);
+// const controlsEnabled = ref(false);
 const controlsMinDistance = ref(1.5);
 const controlsMinPolarAngle = ref(Math.PI / 4);
 
@@ -17,19 +17,19 @@ watch(
   () => {
     if (store.gameStarted) {
       if (ambientLight.value) ambientLight.value.intensity = 0.45;
-      anime({
-        targets: camera.value?.position,
-        x: -0.473,
-        y: 0.504,
-        z: -1.332,
-        delay: 1000,
-        duration: 3000,
-        frameRate: 12,
-        easing: "linear",
-        complete: function () {
-          controlsEnabled.value = true;
-        },
-      });
+      // anime({
+      //   targets: camera.value?.position,
+      //   x: -0.473,
+      //   y: 0.504,
+      //   z: -1.332,
+      //   delay: 1000,
+      //   duration: 5000,
+      //   frameRate: 6,
+      //   easing: "linear",
+      //   complete: function () {
+      //     controlsEnabled.value = true;
+      //   },
+      // });
     }
   }
 );
@@ -38,14 +38,14 @@ watch(
 <template>
   <TresCanvas window-size>
     <TresPerspectiveCamera ref="camera" :position="position" />
-    <!-- <OrbitControls /> -->
+
     <OrbitControls
       ref="controls"
       :max-distance="3"
       :min-distance="controlsMinDistance"
       :max-polar-angle="Math.PI / 2"
       :min-polar-angle="controlsMinPolarAngle"
-      :enabled="controlsEnabled"
+      :damping-factor="0.2"
     />
 
     <Suspense>

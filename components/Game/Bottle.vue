@@ -34,14 +34,12 @@ function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
       y: model.rotation.y + Math.PI * 4 * angleDirection * velocity,
       duration: 4000,
       easing: "easeOutQuint",
+      frameRate: 24,
       begin: function () {
         store.spinning = true;
       },
       complete: function () {
         store.spinning = false;
-        // const name = store.getNameFromAngle(
-        //   normaliseAngle(model.rotation.y) * (180 / Math.PI)
-        // );
         const angle =
           normaliseAngle(2 * Math.PI - model.rotation.y - Math.PI / 2) *
           (180 / Math.PI);

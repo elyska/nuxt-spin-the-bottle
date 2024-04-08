@@ -90,10 +90,10 @@ const start = handleSubmit(
   <div v-if="store.spinning" class="absolute w-full h-full">
     <PlayersMap
       :players="store.players"
-      class="z-[10] w-full xl:w-1/2 max-w-3xl absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none"
+      class="z-[10] w-full xl:w-1/2 max-w-2xl absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none"
     />
   </div>
-  <GameScene />
+  <GameScene v-if="!play" />
   <GameSpinTheBottle v-if="play" />
 </template>
 
