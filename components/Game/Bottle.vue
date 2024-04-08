@@ -7,6 +7,8 @@ const props = defineProps<{
   bottle: BottleName;
 }>();
 
+const store = useGameStore();
+
 const { sizes } = useTresContext();
 
 const { scene: model } = await useGLTF(`/models/bottles/${props.bottle}.glb`);
@@ -17,7 +19,7 @@ model.traverse((child: TresObject) => {
 });
 
 const cursor = ref({ x: 0, y: 0 });
-let spinning = ref(false);
+
 function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
   const velocity = 0.5 + Math.random();
   cursor.value.x = normaliseCursorPosition(event.x, sizes.width.value);
@@ -25,7 +27,7 @@ function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
 
   const angleDirection = getAngleDirection(cursor.value, direction);
 
-  if (!spinning.value) {
+  if (!store.spinning) {
     model.rotation.y = normaliseAngle(model.rotation.y);
     anime({
       targets: model.rotation,
@@ -33,10 +35,10 @@ function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
       duration: 4000,
       easing: "easeOutQuint",
       begin: function () {
-        spinning.value = true;
+        store.spinning = true;
       },
       complete: function () {
-        spinning.value = false;
+        store.spinning = false;
         console.log(normaliseAngle(model.rotation.y) * (180 / Math.PI));
       },
     });

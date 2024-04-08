@@ -31,7 +31,7 @@ const selectedBottle = ref();
 const spotLight = shallowRef<THREE.Light>();
 
 function selectBottle(event: MouseEvent) {
-  if (!camera.value) {
+  if (!camera.value || !store.gameStarted) {
     return;
   }
   const mouse = new THREE.Vector2();

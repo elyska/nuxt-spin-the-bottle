@@ -20,23 +20,23 @@ const strokeWidth = 30;
 <template>
   <div class="relative">
     <svg
-      class="min-w-[300px]"
       viewBox="0 0 200 200"
       xmlns="http://www.w3.org/2000/svg"
+      class="w-full"
     >
       <circle
         cx="100"
         cy="100"
         :r="r"
         fill="none"
-        class="stroke-tres-blue/[0.5]"
+        class="stroke-tres-blue/[0.7]"
         :stroke-width="strokeWidth"
         :stroke-dasharray="`${circumference / segments - gap} ${gap}`"
       />
     </svg>
     <div
       v-for="(player, i) in players"
-      class="absolute inset-[15%] text-center"
+      class="absolute inset-[15%] text-center text-white"
       :style="`rotate: ${90 + segmentAngle/2 + i * segmentAngle}deg`"
     >
       {{ player }}
