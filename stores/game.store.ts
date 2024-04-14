@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useGameStore = defineStore("game", () => {
   const bottle = ref();
   const gameStarted = ref(false);
+  const play = ref(false);
   const spinning = ref(false);
   const players = ref<string[]>([]);
   const player = ref("");
@@ -18,6 +19,7 @@ export const useGameStore = defineStore("game", () => {
   return {
     bottle,
     gameStarted,
+    play,
     players,
     player,
     spinning,

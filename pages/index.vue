@@ -7,16 +7,6 @@ const store = useGameStore();
 
 const showSplash = ref(true);
 const play = ref(false);
-const showPlay = ref(false);
-
-watch(
-  () => store.bottle,
-  () => {
-    if (store.bottle) {
-      showPlay.value = true;
-    }
-  }
-);
 
 const validationSchema = toTypedSchema(
   zod.object({
@@ -45,7 +35,6 @@ const start = handleSubmit(
     class="z-[1] backdrop-blur-md absolute flex items-center justify-center flex-col h-full w-full gap-4"
   >
     <Heading> Spin the Bottle </Heading>
-    <!-- <PlayersMap :players="['rtyasx', 'asd', 'qwe', ]" /> -->
     <PlayersMap
       v-if="values.players?.length && values.players.length > 1"
       :players="values.players"
@@ -72,17 +61,11 @@ const start = handleSubmit(
     </div>
   </div>
 
-  <!-- <Dialog player="Eliska" /> -->
   <Dialog :player="store.player" />
 
   <Btn
-    v-if="showPlay"
-    @click="
-      () => {
-        play = true;
-        showPlay = false;
-      }
-    "
+    v-if="store.bottle && !play"
+    @click="play = true"
     class="z-[1] absolute bottom-4 right-4"
   >
     Play

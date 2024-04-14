@@ -36,7 +36,7 @@ const gap = 1;
     </svg>
     <div
       v-for="(player, i) in players"
-      class="absolute inset-[5%] text-center text-white font-bangers text-2xl"
+      class="absolute inset-[4%] text-center text-white font-bangers text-2xl"
       :style="`rotate: ${90 + segmentAngle / 2 + i * segmentAngle}deg`"
     >
       {{ player }}
