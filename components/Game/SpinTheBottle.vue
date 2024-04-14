@@ -3,7 +3,7 @@ const { bottle } = useGameStore();
 </script>
 
 <template>
-  <TresCanvas window-size shadows>
+  <TresCanvas clear-color="#82DBC5" window-size shadows>
     <TresPerspectiveCamera :position="[0, 1.2, 0]" :look-at="[0, 0, 0]" />
     <!-- <OrbitControls /> -->
 

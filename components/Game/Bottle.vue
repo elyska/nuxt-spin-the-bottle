@@ -11,7 +11,7 @@ const store = useGameStore();
 
 const { sizes } = useTresContext();
 
-const { scene: model } = await useGLTF(`/models/bottles/${props.bottle}.glb`);
+const { scene: model } = await useGLTF(`/models/${props.bottle}.gltf`);
 model.traverse((child: TresObject) => {
   if (child.isMesh) {
     child.castShadow = true;

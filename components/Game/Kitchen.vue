@@ -7,7 +7,7 @@ const store = useGameStore();
 
 const { sizes, camera, raycaster } = useTresContext();
 
-const { scene: model } = await useGLTF("/models/kitchen.glb");
+const { scene: model } = await useGLTF("/models/kitchen.gltf");
 
 model.traverse((child: TresObject) => {
   if (child?.isMesh) {
