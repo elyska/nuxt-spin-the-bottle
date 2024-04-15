@@ -1,16 +1,13 @@
 import { defineStore } from "pinia";
+type Context = {
+  role: "user" | "assistant";
+  content: string;
+}[];
 
 export const useQuestionsStore = defineStore("questions", () => {
-  //   const truths = ref(data.truth);
-  //   const dares = ref(data.dare);
   const truths = ref(shuffleArray(data.truth));
   const dares = ref(shuffleArray(data.dare));
-  const aiContext = ref<
-    {
-      role: "user" | "assistant";
-      content: string;
-    }[]
-  >([]);
+  const aiContext = ref<Context>([]);
 
   const truthIndex = ref(0);
   const dareIndex = ref(0);
@@ -29,28 +26,30 @@ export const useQuestionsStore = defineStore("questions", () => {
 
   async function getQuestion(type: "truth" | "dare") {
     try {
+      const context: Context = [
+        ...aiContext.value,
+        {
+          role: "user",
+          content: type,
+        },
+      ];
+
       const res = await $fetch("/api/generate", {
         method: "POST",
-        body: { type, context: aiContext.value },
+        body: { context },
       });
 
-      if (res.content.length > 0) {
-        const question = res.content[0].text;
+      const question = res.content[0].text;
 
-        aiContext.value = [
-          ...aiContext.value,
-          {
-            role: "user",
-            content: type,
-          },
-          {
-            role: "assistant",
-            content: question,
-          },
-        ];
+      aiContext.value = [
+        ...context,
+        {
+          role: "assistant",
+          content: question,
+        },
+      ];
 
-        return "AI: " + question;
-      }
+      return question;
     } catch {
       switch (type) {
         case "truth":

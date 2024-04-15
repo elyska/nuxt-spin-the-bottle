@@ -9,9 +9,12 @@ const store = useQuestionsStore();
 const gameStore = useGameStore();
 
 const question = ref();
+const loading = ref(false);
 
 async function getQuestion(type: "truth" | "dare") {
+  loading.value = true;
   question.value = await store.getQuestion(type);
+  loading.value = false;
 }
 </script>
 
@@ -34,18 +37,16 @@ async function getQuestion(type: "truth" | "dare") {
         <DialogDescription v-if="question" class="leading-normal">
           {{ question }}
         </DialogDescription>
+        <LoadingMessage v-if="loading" />
 
-        <div v-if="!question" class="flex gap-4">
+        <div v-if="!question && !loading" class="flex gap-4">
           <Btn
             class="flex-grow outline-none"
             type="button"
             @click="getQuestion('truth')"
             >Truth</Btn
           >
-          <Btn
-            theme="error"
-            class="flex-grow"
-            @click="getQuestion('dare')"
+          <Btn theme="error" class="flex-grow" @click="getQuestion('dare')"
             >Dare</Btn
           >
         </div>
