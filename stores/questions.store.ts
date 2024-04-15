@@ -28,28 +28,30 @@ export const useQuestionsStore = defineStore("questions", () => {
   }
 
   async function getQuestion(type: "truth" | "dare") {
-    const res = await $fetch("/api/generate", {
-      method: "POST",
-      body: { type, context: aiContext.value },
-    });
+    try {
+      const res = await $fetch("/api/generate", {
+        method: "POST",
+        body: { type, context: aiContext.value },
+      });
 
-    if (res.content.length > 0) {
-      const question = res.content[0].text;
+      if (res.content.length > 0) {
+        const question = res.content[0].text;
 
-      aiContext.value = [
-        ...aiContext.value,
-        {
-          role: "user",
-          content: type,
-        },
-        {
-          role: "assistant",
-          content: question,
-        },
-      ];
+        aiContext.value = [
+          ...aiContext.value,
+          {
+            role: "user",
+            content: type,
+          },
+          {
+            role: "assistant",
+            content: question,
+          },
+        ];
 
-      return "AI: " + question;
-    } else {
+        return "AI: " + question;
+      }
+    } catch {
       switch (type) {
         case "truth":
           return getTruth();
