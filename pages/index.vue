@@ -53,7 +53,7 @@ const start = handleSubmit(
   </div>
 
   <div
-    v-if="!hasFinishLoading"
+    v-if="store.gameStarted && !hasFinishLoading"
     class="z-[1] bg-tres-blue absolute top-0 left-0 right-0 flex items-center justify-center flex-col h-full w-full gap-16"
   >
     <div class="w-2/3 md:w-1/3">
@@ -76,7 +76,7 @@ const start = handleSubmit(
       class="z-[10] w-full xl:w-1/2 max-w-2xl absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none"
     />
   </div>
-  <GameScene v-if="!play" />
+  <GameScene v-if="store.gameStarted && !play" />
   <GameSpinTheBottle v-if="play" />
 </template>
 
