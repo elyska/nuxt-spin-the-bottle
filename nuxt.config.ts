@@ -14,6 +14,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+  },
   app: {
     head: {
       link: [

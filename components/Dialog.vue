@@ -9,6 +9,10 @@ const store = useQuestionsStore();
 const gameStore = useGameStore();
 
 const question = ref();
+
+async function getQuestion(type: "truth" | "dare") {
+  question.value = await store.getQuestion(type);
+}
 </script>
 
 <template>
@@ -35,13 +39,13 @@ const question = ref();
           <Btn
             class="flex-grow outline-none"
             type="button"
-            @click="question = store.getTruth()"
+            @click="getQuestion('truth')"
             >Truth</Btn
           >
           <Btn
             theme="error"
             class="flex-grow"
-            @click="question = store.getDare()"
+            @click="getQuestion('dare')"
             >Dare</Btn
           >
         </div>

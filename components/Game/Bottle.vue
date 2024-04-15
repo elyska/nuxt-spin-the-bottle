@@ -43,9 +43,9 @@ function handleSwipe(event: PointerEvent, direction: UseSwipeDirection) {
         const angle =
           normaliseAngle(2 * Math.PI - model.rotation.y - Math.PI / 2) *
           (180 / Math.PI);
-        console.log(angle);
+        // console.log(angle);
         store.setPlayer(angle);
-        console.log(store.player);
+        // console.log(store.player);
         store.showDialog = true;
       },
     });
