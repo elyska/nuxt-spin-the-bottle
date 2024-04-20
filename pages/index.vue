@@ -11,6 +11,7 @@ const play = ref(false);
 const validationSchema = toTypedSchema(
   zod.object({
     players: zod.array(zod.string()).min(2, "Add at least two players."),
+    systemPrompt: zod.string().optional(),
   })
 );
 const { values, handleSubmit } = useForm({
@@ -41,14 +42,19 @@ const start = handleSubmit(
     />
     <form
       @submit.prevent="start"
-      class="flex items-center justify-center flex-col w-full gap-12 max-w-7xl"
+      class="flex items-center justify-center flex-col w-full gap-6 max-w-7xl"
     >
       <FormsArrayInput
         name="players"
         placeholder="Players..."
         class="w-3/4 md:w-1/3"
       />
-      <Btn type="submit"> Start </Btn>
+      <FormsTextarea
+        name="systemPrompt"
+        placeholder="Describe the relationships between players, the environment, the type of questions you want to generate..."
+        class="w-3/4 md:w-1/3"
+      />
+      <Btn type="submit" class="mt-6"> Start </Btn>
     </form>
   </div>
 
