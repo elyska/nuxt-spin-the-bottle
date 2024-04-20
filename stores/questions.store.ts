@@ -5,12 +5,40 @@ type Context = {
 }[];
 
 export const useQuestionsStore = defineStore("questions", () => {
+  const gameStore = useGameStore();
   const truths = ref(shuffleArray(data.truth));
   const dares = ref(shuffleArray(data.dare));
   const aiContext = ref<Context>([]);
+  const prompt = ref();
 
   const truthIndex = ref(0);
   const dareIndex = ref(0);
+
+  async function testPrompt(
+    prompt: string,
+    player: string,
+    type: "truth" | "dare"
+  ) {
+    try {
+      const context: Context = [
+        {
+          role: "user",
+          content: `${player} ${type}`,
+        },
+      ];
+
+      const res = await $fetch("/api/generate", {
+        method: "POST",
+        body: { context, players: gameStore.players, prompt },
+      });
+
+      const question = res.content[0].text;
+
+      return question;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   function getTruth() {
     const truth = truths.value[truthIndex.value];
@@ -30,13 +58,13 @@ export const useQuestionsStore = defineStore("questions", () => {
         ...aiContext.value,
         {
           role: "user",
-          content: type,
+          content: `${gameStore.player} ${type}`,
         },
       ];
 
       const res = await $fetch("/api/generate", {
         method: "POST",
-        body: { context },
+        body: { context, players: gameStore.players, prompt: prompt.value },
       });
 
       const question = res.content[0].text;
@@ -60,5 +88,5 @@ export const useQuestionsStore = defineStore("questions", () => {
     }
   }
 
-  return { getQuestion };
+  return { getQuestion, testPrompt, prompt };
 });

@@ -4,6 +4,7 @@ import * as zod from "zod";
 const { progress, hasFinishLoading } = await useProgress();
 
 const store = useGameStore();
+const questionsStore = useQuestionsStore();
 
 const showSplash = ref(true);
 const play = ref(false);
@@ -14,7 +15,7 @@ const validationSchema = toTypedSchema(
     personalise: zod.boolean().default(false),
     systemPrompt: zod.string().optional(),
     player: zod.string().optional(),
-    type: zod.string().optional(),
+    type: zod.enum(["truth", "dare"]).optional(),
   })
 );
 const { values, handleSubmit } = useForm({
@@ -26,11 +27,27 @@ const start = handleSubmit(
     showSplash.value = false;
     store.gameStarted = true;
     store.players = values.players;
+    questionsStore.prompt = values.systemPrompt;
   },
   (err) => {
     console.error(err.errors);
   }
 );
+
+const question = ref();
+const questionLoading = ref(false);
+async function test() {
+  if (!values.systemPrompt || !values.player || !values.type) {
+    return;
+  }
+  questionLoading.value = true;
+  question.value = await questionsStore.testPrompt(
+    values.systemPrompt,
+    values.player,
+    values.type
+  );
+  questionLoading.value = false;
+}
 </script>
 
 <template>
@@ -74,7 +91,9 @@ const start = handleSubmit(
                 :disabled="!(values.players && values.players.length > 1)"
               />
             </div>
-            <Btn theme="error">Test</Btn>
+            <Btn theme="error" @click="test">Test</Btn>
+            <LoadingMessage v-if="questionLoading" />
+            <p v-else-if="question" class="text-white m-0">{{ question }}</p>
           </div>
         </div>
       </fieldset>
