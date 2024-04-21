@@ -1,1 +1,1 @@
-export type ButtonTheme = "primary" | "error";
+export type ButtonTheme = "primary" | "error" | "neon";

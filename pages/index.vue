@@ -53,9 +53,11 @@ async function test() {
 <template>
   <div
     v-if="showSplash"
-    class="z-[1] backdrop-blur-md absolute flex items-center justify-center flex-col min-h-full w-full gap-4 py-12"
+    class="z-[1] bg-black absolute flex items-center justify-center flex-col min-h-full w-full gap-4 py-12"
   >
-    <Heading> Spin the Bottle </Heading>
+    <!-- <NeonBorder> -->
+      <NeonSign> Spin <br /> the Bottle </NeonSign>
+    <!-- </NeonBorder> -->
     <PlayersMap
       v-if="values.players?.length && values.players.length > 1"
       :players="values.players"
@@ -97,18 +99,18 @@ async function test() {
           </div>
         </div>
       </fieldset>
-      <Btn type="submit"> Start </Btn>
+      <Btn type="submit" theme="primary" :shadows="true"> Start </Btn>
     </form>
   </div>
 
-  <div
+  <!-- <div
     v-if="!hasFinishLoading"
     class="z-[1] bg-tres-blue absolute top-0 left-0 right-0 flex items-center justify-center flex-col h-full w-full gap-16"
   >
     <div class="w-2/3 md:w-1/3">
       <LoadingProgress :key="progress" :percentage="progress" />
     </div>
-  </div>
+  </div> -->
 
   <Dialog :player="store.player" />
 
@@ -125,8 +127,8 @@ async function test() {
       class="z-[10] w-full xl:w-1/2 max-w-2xl absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none"
     />
   </div>
-  <GameScene v-if="!play" />
-  <GameSpinTheBottle v-if="play" />
+  <!-- <GameScene v-if="!play" />
+  <GameSpinTheBottle v-if="play" /> -->
 </template>
 
 <style scoped></style>

@@ -6,6 +6,7 @@ const props = withDefaults(
     theme?: ButtonTheme;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
+    shadows?: boolean;
   }>(),
   {
     theme: "primary",
@@ -14,9 +15,20 @@ const props = withDefaults(
   }
 );
 
+const shadowClasses = computed(() => {
+  const themeClasses = {
+    primary: "shadow-tres-blue/[0.6]",
+    neon: "shadow-neon-pink/[0.6]",
+    error: "shadow-red-500/[0.6]",
+  };
+
+  return `shadow-[0_0px_40px_15px] ${themeClasses[props.theme]}`;
+});
+
 const btnClasses = computed(() => {
   const themeClasses = {
     primary: "bg-tres-blue-500",
+    neon: "bg-neon-pink-500",
     error: "bg-red-800",
   };
 
@@ -26,6 +38,7 @@ const btnClasses = computed(() => {
 const spanClasses = computed(() => {
   const themeClasses = {
     primary: "bg-tres-blue/[0.6]",
+    neon: "bg-neon-pink/[0.6]",
     error: "bg-red-500/[0.7]",
   };
 
@@ -37,7 +50,7 @@ const spanClasses = computed(() => {
   <button
     :type="type"
     class="pushable drop-shadow-md disabled:bg-gray-700"
-    :class="btnClasses"
+    :class="[btnClasses, shadows ? shadowClasses : '']"
     :disabled="disabled"
   >
     <span
