@@ -25,8 +25,7 @@ const { handleChange, errorMessage } = useField(props.name);
     <TagsInputRoot
       v-model="modelValue"
       :name="name"
-      class="flex gap-2 items-center border p-2 rounded-lg w-full flex-wrap bg-white"
-      :class="[errorMessage ? 'border-red-400' : '']"
+      class="flex gap-2 items-center p-2 w-full flex-wrap bg-white rounded-lg mb-3"
       :required="required"
       @update:modelValue="handleChange"
     >
@@ -34,7 +33,7 @@ const { handleChange, errorMessage } = useField(props.name);
         v-for="item in modelValue"
         :key="item"
         :value="item"
-        class="text-white flex shadow-md items-center justify-center gap-2 bg-tres-blue aria-[current=true]:bg-tres-blue-500 rounded p-1"
+        class="text-white flex shadow-md items-center justify-center gap-2 bg-neon-pink aria-[current=true]:bg-neon-pink-500 rounded p-1"
       >
         <TagsInputItemText class="text-sm pl-1" />
         <TagsInputItemDelete
