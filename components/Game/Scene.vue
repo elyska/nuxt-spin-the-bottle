@@ -24,10 +24,4 @@ const controlsMinPolarAngle = ref(Math.PI / 4);
   </TresCanvas>
 </template>
 
-<style>
-#app {
-  height: 100%;
-  width: 100%;
-  z-index: 0;
-}
-</style>
+<style scoped></style>
