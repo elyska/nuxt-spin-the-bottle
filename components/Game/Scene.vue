@@ -13,13 +13,14 @@ const controlsMinPolarAngle = ref(Math.PI / 4);
       :min-distance="controlsMinDistance"
       :max-polar-angle="Math.PI / 2"
       :min-polar-angle="controlsMinPolarAngle"
+      :enable-damping="false"
     />
 
     <Suspense>
       <GameKitchen />
     </Suspense>
 
-    <TresAmbientLight :intensity="1" />
+    <TresAmbientLight :intensity="2" />
   </TresCanvas>
 </template>
 
