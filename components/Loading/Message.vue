@@ -21,12 +21,12 @@ withDefaults(
   border-radius: 50%;
 }
 .white {
-  animation: white 1s infinite linear alternate;
+  animation: whiteDots 1s infinite linear alternate;
 }
 .black {
-  animation: black 1s infinite linear alternate;
+  animation: blackDots 1s infinite linear alternate;
 }
-@keyframes white {
+@keyframes whiteDots {
   0% {
     box-shadow: 20px 0 #fff, -20px 0 #fff2;
     background: #fff;
@@ -44,7 +44,7 @@ withDefaults(
     background: #fff;
   }
 }
-@keyframes black {
+@keyframes blackDots {
   0% {
     box-shadow: 20px 0 #000, -20px 0 #0002;
     background: #000;
