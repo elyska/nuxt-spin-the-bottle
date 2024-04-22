@@ -40,7 +40,6 @@ const start = handleSubmit(
     v-if="showSplash"
     class="z-[1] bg-black absolute flex items-center justify-center flex-col min-h-full w-full gap-4 py-12"
   >
-    <LoadingMessage colour="white" />
     <NeonSign>
       Spin <br />
       the Bottle
