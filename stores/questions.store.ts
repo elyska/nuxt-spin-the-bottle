@@ -10,6 +10,7 @@ export const useQuestionsStore = defineStore("questions", () => {
   const dares = ref(shuffleArray(data.dare));
   const aiContext = ref<Context>([]);
   const prompt = ref();
+  const generateByAI = ref(false);
 
   const truthIndex = ref(0);
   const dareIndex = ref(0);
@@ -52,7 +53,19 @@ export const useQuestionsStore = defineStore("questions", () => {
     return dare;
   }
 
+  function getQuestionFromDataBank(type: "truth" | "dare") {
+    switch (type) {
+      case "truth":
+        return getTruth();
+      case "dare":
+        return getDare();
+    }
+  }
+
   async function getQuestion(type: "truth" | "dare") {
+    if (!generateByAI.value) {
+      return getQuestionFromDataBank(type);
+    }
     try {
       const context: Context = [
         ...aiContext.value,
@@ -79,14 +92,9 @@ export const useQuestionsStore = defineStore("questions", () => {
 
       return question;
     } catch {
-      switch (type) {
-        case "truth":
-          return getTruth();
-        case "dare":
-          return getDare();
-      }
+      return getQuestionFromDataBank(type);
     }
   }
 
-  return { getQuestion, testPrompt, prompt };
+  return { getQuestion, testPrompt, prompt, generateByAI };
 });

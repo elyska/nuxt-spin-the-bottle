@@ -59,6 +59,7 @@ const start = handleSubmit(
           name="personalise"
           label="Personalise game"
           :disabled="!(values.players && values.players.length > 1)"
+          class="justify-center"
         />
 
         <FormsTextarea
@@ -75,6 +76,8 @@ const start = handleSubmit(
       <Btn type="submit" theme="primary" :shadows="true"> Start </Btn>
     </form>
   </div>
+
+  <Settings v-if="play && !store.spinning" />
 
   <Dialog :player="store.player" />
 

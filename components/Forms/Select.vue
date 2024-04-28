@@ -22,7 +22,7 @@ const { handleChange, errorMessage } = useField(props.name, undefined, {
   <div class="w-full"> 
     <SelectRoot @update:modelValue="handleChange">
       <SelectTrigger
-        class="disabled:cursor-not-allowed w-full border inline-flex items-center justify-between rounded-lg px-[15px] text-sm leading-none p-3 gap-[5px] bg-white data-[placeholder]:text-slate-400 outline-none"
+        class="disabled:cursor-not-allowed w-full border border-slate-300 inline-flex items-center justify-between rounded-lg px-[15px] text-sm leading-none p-3 gap-[5px] bg-white data-[placeholder]:text-slate-400 outline-none"
         :disabled="disabled"
       >
         <SelectValue :placeholder="placeholder" />

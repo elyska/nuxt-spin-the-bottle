@@ -25,7 +25,7 @@ const { handleChange, errorMessage } = useField(props.name);
     <TagsInputRoot
       v-model="modelValue"
       :name="name"
-      class="flex gap-2 items-center p-2 w-full flex-wrap bg-white rounded-lg mb-3"
+      class="flex gap-2 items-center p-2 w-full flex-wrap bg-white border border-slate-300 rounded-lg mb-3"
       :required="required"
       @update:modelValue="handleChange"
     >
