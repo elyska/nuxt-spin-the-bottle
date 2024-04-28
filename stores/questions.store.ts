@@ -10,7 +10,7 @@ export const useQuestionsStore = defineStore("questions", () => {
   const dares = ref(shuffleArray(data.dare));
   const aiContext = ref<Context>([]);
   const prompt = ref();
-  const generateByAI = ref(false);
+  const generateByAI = ref(true);
 
   const truthIndex = ref(0);
   const dareIndex = ref(0);
@@ -96,5 +96,11 @@ export const useQuestionsStore = defineStore("questions", () => {
     }
   }
 
-  return { getQuestion, testPrompt, prompt, generateByAI };
+  return {
+    getQuestion,
+    getQuestionFromDataBank,
+    testPrompt,
+    prompt,
+    generateByAI,
+  };
 });

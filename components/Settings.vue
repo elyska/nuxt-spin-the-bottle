@@ -29,8 +29,12 @@ const save = handleSubmit(
 
 <template>
   <DialogRoot v-model:open="open">
-    <DialogTrigger class="absolute top-4 right-4 z-[2]">
-      <Cog8ToothIcon class="w-10 text-tres-blue hover:text-tres-blue-500" />
+    <DialogTrigger
+      class="absolute top-4 right-4 z-[1] bg-white rounded-full p-1 shadow-lg"
+    >
+      <Cog8ToothIcon
+        class="w-7 text-tres-blue hover:text-tres-blue-500 transition"
+      />
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="bg-gray-800/[0.7] fixed inset-0 z-30" />

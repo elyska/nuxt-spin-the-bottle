@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { TrophyIcon } from "@heroicons/vue/20/solid";
+import {
+  TrophyIcon,
+  ArrowPathIcon,
+  BookOpenIcon,
+} from "@heroicons/vue/20/solid";
 
 defineProps<{
   player: string;
@@ -11,10 +15,15 @@ const gameStore = useGameStore();
 const question = ref();
 const loading = ref(false);
 
+const questionType = ref();
 async function getQuestion(type: "truth" | "dare") {
+  questionType.value = type;
   loading.value = true;
   question.value = await store.getQuestion(type);
   loading.value = false;
+}
+async function getQuestionFromDataBank() {
+  question.value = store.getQuestionFromDataBank(questionType.value);
 }
 </script>
 
@@ -30,10 +39,22 @@ async function getQuestion(type: "truth" | "dare") {
         "
         class="flex flex-col gap-6 fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]"
       >
-        <DialogTitle class="m-0 text-xl font-semibold">
-          <TrophyIcon class="w-6 text-yellow-400 inline mr-2" />{{ player }}'s
-          turn
-        </DialogTitle>
+        <div class="flex justify-between">
+          <DialogTitle class="m-0 text-xl font-semibold">
+            <TrophyIcon class="w-6 text-yellow-400 inline mr-2" />{{ player }}'s
+            turn
+          </DialogTitle>
+          <div v-if="question" class="flex gap-2">
+            <BookOpenIcon
+              class="w-5 text-slate-400 hover:text-slate-500 transition cursor-pointer"
+              @click="getQuestionFromDataBank"
+            />
+            <ArrowPathIcon
+              class="w-5 text-slate-400 hover:text-slate-500 transition cursor-pointer"
+              @click="getQuestion(questionType)"
+            />
+          </div>
+        </div>
         <DialogDescription v-if="question" class="leading-normal">
           {{ question }}
         </DialogDescription>

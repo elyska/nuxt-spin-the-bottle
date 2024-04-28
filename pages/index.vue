@@ -97,7 +97,7 @@ const start = handleSubmit(
 
   <div
     v-if="!hasFinishLoading"
-    class="z-[1] bg-black absolute top-0 left-0 right-0 flex items-center justify-center flex-col h-full w-full gap-16"
+    class="z-[10] bg-black absolute top-0 left-0 right-0 flex items-center justify-center flex-col h-full w-full gap-16"
   >
     <div class="w-2/3 md:w-1/3">
       <LoadingProgress :key="progress" :percentage="progress" />
