@@ -19,15 +19,21 @@ const { handleSubmit } = useForm({
 });
 
 const question = ref();
+const error = ref();
 const questionLoading = ref(false);
 const test = handleSubmit(
   async (values) => {
     questionLoading.value = true;
-    question.value = await questionsStore.testPrompt(
-      props.prompt,
-      values.player,
-      values.type
-    );
+    try {
+      question.value = await questionsStore.testPrompt(
+        props.prompt,
+        values.player,
+        values.type
+      );
+    } catch (err) {
+      error.value = true;
+      question.value = "";
+    }
     questionLoading.value = false;
   },
   (err) => {
@@ -54,6 +60,9 @@ const test = handleSubmit(
       <Btn theme="neon" type="submit">Test</Btn>
       <LoadingMessage v-if="questionLoading" colour="white" />
       <p v-else-if="question" class="text-neon-pink m-0">{{ question }}</p>
+      <ErrorMessage v-if="error"
+        >AI is not available at the moment</ErrorMessage
+      >
     </NeonBorder>
   </form>
 </template>

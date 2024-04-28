@@ -20,25 +20,21 @@ export const useQuestionsStore = defineStore("questions", () => {
     player: string,
     type: "truth" | "dare"
   ) {
-    try {
-      const context: Context = [
-        {
-          role: "user",
-          content: `${player} ${type}`,
-        },
-      ];
+    const context: Context = [
+      {
+        role: "user",
+        content: `${player} ${type}`,
+      },
+    ];
 
-      const res = await $fetch("/api/generate", {
-        method: "POST",
-        body: { context, players: gameStore.players, prompt },
-      });
+    const res = await $fetch("/api/generate", {
+      method: "POST",
+      body: { context, players: gameStore.players, prompt },
+    });
 
-      const question = res.content[0].text;
+    const question = res.content[0].text;
 
-      return question;
-    } catch (e) {
-      console.error(e);
-    }
+    return question;
   }
 
   function getTruth() {
